@@ -47,15 +47,19 @@ const checkAssignmentDeadline = () => {
       message.innerText = text
       message.style.marginLeft = "1em"
       message.style.padding = ".2em .5em"
-      if (msgStatus === "normal") {
-        message.style.backgroundColor = "#d3ebd3"
-        message.style.color = "#244f24"
-      } else if (msgStatus === "caution") {
-        message.style.backgroundColor = "#fff4d1"
-        message.style.color = "#433200"
-      } else if (msgStatus === "danger") {
-        message.style.backgroundColor = "#ffdce0"
-        message.style.color = "#5d000b"
+      switch (msgStatus) {
+        case "normal":
+          message.style.backgroundColor = "#d3edb3"
+          message.style.color = "#244f24"
+          break
+        case "caution":
+          message.style.backgroundColor = "#fff4d1"
+          message.style.color = "#433200"
+          break
+        case "danger":
+          message.style.backgroundColor = "ffdce0"
+          message.style.color = "#5f000b"
+          break
       }
       deadlineTh.nextElementSibling.appendChild(message)
     }
