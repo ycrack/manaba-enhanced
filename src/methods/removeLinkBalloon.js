@@ -12,8 +12,9 @@ const removeLinkBalloon = () => {
       const linkNewEl = document.createElement("a")
       const url = link.searchParams.get("url")
       linkNewEl.href = url
-      linkNewEl.innerHTML =
-        linkEl.innerHTML.indexOf("http") === -1 ? link.innerHTML : urlClamp(url)
+      linkNewEl.innerHTML = linkEl.innerText.match(
+        /^http(s)?:\/\/([\w-]+\.)+[\w-]{2,}\/([/\w-.?%&=]*)?$/
+      ) ? urlClamp(url) : linkEl.innerHTML
       linkNewEl.target = "_blank"
       linkNewEl.rel = "noopener noreferrer"
 
