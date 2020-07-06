@@ -6,18 +6,19 @@ const removeLinkBalloon = () => {
   const urlClamp = (url) =>
     url.length > 100 ? `${url.substring(0, 75)}...` : url
 
-  for (const link of links) {
-    if (link.href.indexOf("link_iframe_balloon") !== -1) {
-      const linkNew = document.createElement("a")
-      const url = unescape(link.href.substr(56))
-      linkNew.href = url
-      linkNew.innerHTML =
-        link.innerHTML.indexOf("http") === -1 ? link.innerHTML : urlClamp(url)
-      linkNew.target = "_blank"
-      linkNew.rel = "noopener noreferrer"
+  for (const linkEl of links) {
+    const link = new URL(linkEl.href)
+    if (link.pathname.match(/link_iframe_balloon/)) {
+      const linkNewEl = document.createElement("a")
+      const url = link.searchParams.get("url")
+      linkNewEl.href = url
+      linkNewEl.innerHTML =
+        linkEl.innerHTML.indexOf("http") === -1 ? link.innerHTML : urlClamp(url)
+      linkNewEl.target = "_blank"
+      linkNewEl.rel = "noopener noreferrer"
 
-      link.parentElement.insertBefore(linkNew, link)
-      link.remove()
+      linkEl.parentElement.insertBefore(linkNewEl, linkEl)
+      linkEl.remove()
     }
   }
 }
